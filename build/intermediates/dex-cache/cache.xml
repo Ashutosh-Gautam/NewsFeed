@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/Users/Ashutosh/AndroidStudioProjects/NewsFeed/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.1/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="f8efd0096475e0daf054267b61544e10dc776503">
+        <dex dex="/Users/Ashutosh/AndroidStudioProjects/NewsFeed/app/build/intermediates/pre-dexed/debug/classes-5ad37a11e5af5095dcd1983f7403b83d1c2cfb07.jar" />
+    </item>
+    <item
+        jar="/Users/Ashutosh/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/22.2.1/support-annotations-22.2.1.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="61a0ff5c29295ec56d7e0bd3d25d95dbf71b4b2b">
+        <dex dex="/Users/Ashutosh/AndroidStudioProjects/NewsFeed/app/build/intermediates/pre-dexed/debug/support-annotations-22.2.1-9146433d864f65b72fd59069479892981adc3c59.jar" />
+    </item>
+    <item
+        jar="/Users/Ashutosh/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.3.1/ecb6e1f8e4b0e84c4b886c2f14a1500caf309757/gson-2.3.1.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="ecb6e1f8e4b0e84c4b886c2f14a1500caf309757">
+        <dex dex="/Users/Ashutosh/AndroidStudioProjects/NewsFeed/app/build/intermediates/pre-dexed/debug/gson-2.3.1-12fe7ccbdff09a577edf2bb9eca225b06057f846.jar" />
+    </item>
+    <item
+        jar="/Users/Ashutosh/.gradle/caches/modules-2/files-2.1/com.squareup.retrofit/retrofit/1.9.0/a681c044244d9fc375198588297a39ba78028423/retrofit-1.9.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="a681c044244d9fc375198588297a39ba78028423">
+        <dex dex="/Users/Ashutosh/AndroidStudioProjects/NewsFeed/app/build/intermediates/pre-dexed/debug/retrofit-1.9.0-5996de0f76d9a55f76900bda2063002055db898e.jar" />
+    </item>
+    <item
+        jar="/Users/Ashutosh/AndroidStudioProjects/NewsFeed/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="4486e953d1f35f8ccab098b1dd67146366d5f731">
+        <dex dex="/Users/Ashutosh/AndroidStudioProjects/NewsFeed/app/build/intermediates/pre-dexed/debug/classes-3368c56115862266c457b7506fad6d562dcd78f8.jar" />
+    </item>
+    <item
+        jar="/Users/Ashutosh/AndroidStudioProjects/NewsFeed/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.1/jars/libs/internal_impl-22.2.1.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="c471eaaba13ff64f6e0383d1c30a9cdc9a97efeb">
+        <dex dex="/Users/Ashutosh/AndroidStudioProjects/NewsFeed/app/build/intermediates/pre-dexed/debug/internal_impl-22.2.1-485e68bc155b145cf5e18bce5c5ebc582c3487af.jar" />
+    </item>
+
+</items>

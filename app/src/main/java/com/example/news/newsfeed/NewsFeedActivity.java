@@ -31,11 +31,13 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
+import de.greenrobot.event.EventBus;
 
 public class NewsFeedActivity extends AppCompatActivity {
 
@@ -44,6 +46,7 @@ public class NewsFeedActivity extends AppCompatActivity {
     private ProgressBar progressbar = null;
     private ListView feedListView = null;
     private SwipeRefreshLayout mSwipeRefreshLayout = null;
+    DatabaseHandler db;
 
 
     @Override
@@ -51,9 +54,11 @@ public class NewsFeedActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_posts_list);
 
-        progressbar = (ProgressBar) findViewById(R.id.progressBar);
-
+        db = new DatabaseHandler(this);
+        EventBus.getDefault().register(this);
         loadNewsFeed();
+
+        progressbar = (ProgressBar) findViewById(R.id.progressBar);
 
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -65,6 +70,31 @@ public class NewsFeedActivity extends AppCompatActivity {
         });
 
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    public void onEvent(String response){
+        try {
+            parseJson(new JSONObject(response));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     private void loadNewsFeed() {
         String url = "http://timesofindia.indiatimes.com";
@@ -80,18 +110,16 @@ public class NewsFeedActivity extends AppCompatActivity {
             public void success(Response detail, Response response) {
 
                 String detailsString = getStringFromRetrofitResponse(detail);
-                try {
-                    parseJson(new JSONObject(detailsString));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
+                //Post the user to the default EventBus
+                EventBus.getDefault().post(detailsString);
                 progressbar.setVisibility(View.INVISIBLE);
             }
 
             @Override
             public void failure(RetrofitError error) {
                 Log.e("JSON Parser", "Error parsing data " + error);
+                ArrayList<FeedItem> feedItemList = db.fetchItem();
+                updateList(feedItemList);
                 progressbar.setVisibility(View.INVISIBLE);
             }
         });
@@ -123,10 +151,6 @@ public class NewsFeedActivity extends AppCompatActivity {
 
     }
 
-
-
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_news_feed, menu);
@@ -144,7 +168,7 @@ public class NewsFeedActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void updateList() {
+    public void updateList(ArrayList<FeedItem> feedList) {
 
         if (mSwipeRefreshLayout.isRefreshing()) {
             mSwipeRefreshLayout.setRefreshing(false);
@@ -178,7 +202,7 @@ public class NewsFeedActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void result) {
             if (null != feedList) {
-                updateList();
+                updateList(feedList);
             }
         }
 
@@ -244,6 +268,8 @@ public class NewsFeedActivity extends AppCompatActivity {
 
                 JSONArray posts = json.getJSONArray("NewsItem");
 
+
+                db.clearTable();
                 feedList = new ArrayList<FeedItem>();
 
                 for (int i = 0; i < posts.length(); i++) {
@@ -259,11 +285,13 @@ public class NewsFeedActivity extends AppCompatActivity {
                     String photo = image.getString("Photo");
                     item.setImage(photo);
 
+                    db.addNewsFeed(item);
+
                     feedList.add(item);
                 }
 
                 if (null != feedList) {
-                    updateList();
+                    updateList(feedList);
                 }
         } catch (JSONException e) {
             e.printStackTrace();
